@@ -7,7 +7,7 @@ import fisica.*;
 //palette
 color blue   = #a2d2ff;
 color brown  = #ab7743;
-color green  = color(74, 163, 57);
+color green  = #9cc97f;
 color red    = #d65859;
 color yellow = #ffd04d;
 color white  = #ffffff;
@@ -50,7 +50,8 @@ void setup() {
   //makeCloud();
   
   //add button to world
-  gravityButton = new button("gravity", 80, 520, 100, 60, yellow, red);
+  gravityButton = new button("gravity", 80, 540, 80, 60, yellow, red);
+  newFBodiesButton = new button("new", 720, 50, 80, 60, green, yellow);
 }
 
 //===========================================================================================
@@ -165,7 +166,12 @@ void draw() {
   //button
   click();
   gravityButton.show();
+  newFBodiesButton.show();
   if (gravityButton.clicked) {
+    
+  }
+  
+  if (newFBodiesButton.clicked) {
     
   }
   

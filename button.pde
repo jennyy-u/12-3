@@ -35,6 +35,7 @@ class button {
 
 
   void show() {
+
     drawRect();
     drawLabel();
     checkForClick();
