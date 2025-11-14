@@ -15,7 +15,8 @@ color white  = #ffffff;
 //button
 boolean mouseReleased;
 boolean wasPressed;
-
+boolean newLivesOn;
+boolean gravityOff;
 button gravityButton;
 button newFBodiesButton;
 
@@ -26,10 +27,15 @@ PImage spongebob;
 FPoly topPlatform;
 FPoly bottomPlatform;
 FPoly bucket;
-FPoly cloud;
+
+//clouds
+float cloudBx = -200, cloudBy = 120;
+float cloudFx = -200, cloudFy = 300;
+float cloudBspeed = 0.7, cloudFspeed = 1.2;
 
 //fisica
 FWorld world;
+
 
 void setup() {
   //make window
@@ -47,8 +53,7 @@ void setup() {
   makeTopPlatform();
   //makeBottomPlatform();
   makeBucket();
-  //makeCloud();
-  
+
   //add button to world
   gravityButton = new button("gravity", 80, 540, 80, 60, yellow, red);
   newFBodiesButton = new button("new", 720, 50, 80, 60, green, yellow);
@@ -59,6 +64,8 @@ void setup() {
 void makeWorld() {
   Fisica.init(this);
   world = new FWorld();
+  gravityOff = false;
+  newLivesOn = true;
   world.setGravity(0, 900);
 }
 
@@ -128,58 +135,85 @@ void makeBucket() {
 
 //===========================================================================================
 
-void makeCloud() {
-  cloud = new FPoly();
-  
-  //plot the vertices of this platform
-  pushMatrix();
-  stroke(white);
-
-  ellipse(100, 100, 30, 40);
-  
-  popMatrix();
-  
-  //define properties
-  cloud.setStatic(true);
-  cloud.setFillColor(white);
-  
-  //put it in the world
-  world.add(cloud);
-}
-
-
-
-
-//===========================================================================================
-
 void draw() {
   println("x: " + mouseX + " y: " + mouseY);
   background(blue);
 
-  if (frameCount % 50 == 0) {  //Every 20 frames ...
+  if (frameCount % 50 == 0 && newLivesOn == true) {  //Every 20 frames ...
     makeCircle();
     makeBlob();
     makeBox();
     makeBird();
   }
-  
-  //button
+
+  //cloud back
+  makeCloudB(cloudBx, cloudBy);
+  cloudBx += cloudBspeed;
+  if (cloudBx > width+50) {
+    cloudBx = -200;
+  }
+
+  //buttons
   click();
   gravityButton.show();
   newFBodiesButton.show();
-  if (gravityButton.clicked) {
-    
-  }
-  
+
   if (newFBodiesButton.clicked) {
-    
+    newLivesOn = !newLivesOn;
   }
-  
-  
+
+  if (gravityButton.clicked) {
+    gravityOff = !gravityOff;
+    gravityOnOff();
+  }
+
   world.step();  //get box2D to calculate all the forces and new positions
   world.draw();  //ask box2D to convert this world to processing screen coordinates and draw
+
+  //cloud front
+  makeCloudF(cloudFx, cloudFy);
+  cloudFx += cloudFspeed;
+  if (cloudFx > width+100) {
+    cloudFx = -200;
+  }
 }
 
+//===========================================================================================
+
+void gravityOnOff() {
+  if (gravityOff == true) {
+    world.setGravity(0, 0);
+  } else {
+    world.setGravity(0, 900);
+  }
+}
+
+//===========================================================================================
+
+void makeCloudB(float x, float y) {
+  noStroke();
+  fill(white);
+  ellipse(x, y, 30, 40);
+  ellipse(x+20, y+30, 45, 50);
+  ellipse(x-30, y+20, 60, 45);
+  ellipse(x-10, y-10, 50, 40);
+  ellipse(x-35, y-5, 35, 30);
+  ellipse(x+30, y+5, 45, 40);
+  ellipse(x+5, y+25, 50, 35);
+}
+
+//===========================================================================================
+
+void makeCloudF(float x, float y) {
+  noStroke();
+  fill(white);
+  ellipse(x, y, 60, 50);
+  ellipse(x+35, y+10, 50, 50);
+  ellipse(x+55, y+27, 50, 45);
+  ellipse(x+30, y+45, 50, 40);
+  ellipse(x-5, y+40, 60, 55);
+  ellipse(x-25, y+20, 60, 50);
+}
 
 //===========================================================================================
 
@@ -230,8 +264,8 @@ void makeBox() {
 
   //set visuals
   /*box.setStroke(0);
-  box.setStrokeWeight(2);
-  box.setFillColor(green); */
+   box.setStrokeWeight(2);
+   box.setFillColor(green); */
   //box.setSize(35);
   box.attachImage(spongebob);
 
