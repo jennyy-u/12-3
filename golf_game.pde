@@ -7,12 +7,14 @@ import fisica.*;
 //palette
 color white = #ffffff;
 color black = #000000;
+color blue   = #d1e8fc;
+color green = #88b586;
+
+//keys
+boolean upKey, downKey, leftKey, rightKey, spaceKey;
 
 //locked assets
 FPoly base;
-
-//interacting assets
-FCircle ball;
 
 //fisica
 FWorld world;
@@ -25,6 +27,7 @@ void setup() {
 
   //add terrain
   makeBase();
+  makeBall();
 }
 
 //===========================================================================================
@@ -56,13 +59,17 @@ void makeBase() {
   base.vertex(810, 300);
   base.vertex(850, 270);
   base.vertex(870, 250);
+  base.vertex(935, 250);
+  base.vertex(940, 280);
+  base.vertex(975, 280);
+  base.vertex(980, 250);
   base.vertex(width, 250);
   base.vertex(width, height);
   base.vertex(0, height);
 
   //define properties
   base.setStatic(true);
-  base.setFillColor(black);
+  base.setFillColor(green);
 
   //put into world
   world.add(base);
@@ -71,8 +78,48 @@ void makeBase() {
 //===========================================================================================
 
 void draw() {
-  background(white);
+  background(blue);
+
+
+  
+
 
   world.step();
   world.draw();
+}
+
+
+//===========================================================================================
+
+void makeBall() {
+  FCircle ball = new FCircle(30);
+
+  //set visuals
+  ball.setStroke(white);
+  ball.setStrokeWeight(2);
+  ball.setFillColor(white);
+
+  //set physical
+  ball.setDensity(0.2);
+  ball.setFriction(1);
+  ball.setRestitution(0);
+
+  //add to world
+  world.add(ball);
+}
+
+
+//===========================================================================================
+
+void player1() {
+  
+  
+}
+
+
+//===========================================================================================
+
+void player2() {
+  
+  
 }
