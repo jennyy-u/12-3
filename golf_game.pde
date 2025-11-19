@@ -10,11 +10,20 @@ color black = #000000;
 color blue   = #d1e8fc;
 color green = #88b586;
 
+//mode framework
+final int INTRO = 0;
+final int GAME = 1;
+final int GAMEOVER = 2;
+int mode = GAME;
+
+FCircle ball;
+
 //keys
 boolean upKey, downKey, leftKey, rightKey, spaceKey;
 
 //locked assets
 FPoly base;
+FBox endSpot;
 
 //fisica
 FWorld world;
@@ -28,6 +37,7 @@ void setup() {
   //add terrain
   makeBase();
   makeBall();
+  makeEndSpot();
 }
 
 //===========================================================================================
@@ -60,8 +70,8 @@ void makeBase() {
   base.vertex(850, 270);
   base.vertex(870, 250);
   base.vertex(935, 250);
-  base.vertex(940, 280);
-  base.vertex(975, 280);
+  base.vertex(940, 290);
+  base.vertex(975, 290);
   base.vertex(980, 250);
   base.vertex(width, 250);
   base.vertex(width, height);
@@ -79,20 +89,42 @@ void makeBase() {
 
 void draw() {
   background(blue);
+  
+  //mode
+  if (mode == INTRO) intro();
+  else if (mode == GAME) game();
+  else if (mode == GAMEOVER) gameover();
+  
+
 
 
   
 
 
-  world.step();
-  world.draw();
 }
 
-
+//===========================================================================================
+ void makeEndSpot() {
+   endSpot = new FBox(35, 10);
+   endSpot.setPosition(957, 0);
+   
+   //set visuals
+   endSpot.setStroke(green);
+   endSpot.setStrokeWeight(2);
+   endSpot.setFillColor(white);
+   
+   //set physical properties
+   endSpot.setDensity(0.2);
+   endSpot.setFriction(1);
+   world.add(endSpot);
+   
+ }
+ 
 //===========================================================================================
 
 void makeBall() {
-  FCircle ball = new FCircle(30);
+  ball = new FCircle(30);
+  ball.setPosition(20, 0);
 
   //set visuals
   ball.setStroke(white);
@@ -107,6 +139,9 @@ void makeBall() {
   //add to world
   world.add(ball);
 }
+
+
+
 
 
 //===========================================================================================
