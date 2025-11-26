@@ -6,14 +6,27 @@ void gameover() {
   //game title
   fill(white);
   textSize(70);
-  text("gameover", width/2, 200);
-  
-  //player1 win
-  
-  //player2 win
+  text("gameover", width/2, 250);
+
+  //score
+  textSize(30);
+  text("player 1 score:", 470, 400);
+  text(ballPoints, 535, 400);
+  text("player 2 score:", 470, 450);
+  text(ball2Points, 535, 450);
+
+  if (ballPoints < ball2Points) {
+    textSize(50);
+    text("player 1 wins!", width/2, 100);
+  } else if (ball2Points < ballPoints) {
+    textSize(50);
+    text("player 1 wins!", width/2, 100);
+  }
 
 
-  playAgainButton = new button("restart", width/2, 400, 150, 70, white, blue);
+
+
+  playAgainButton = new button("restart", width/2, 500, 150, 70, white, blue);
   click();
   playAgainButton.show();
   gameoverClicks();
@@ -21,10 +34,11 @@ void gameover() {
 
 void gameoverClicks() {
   if (playAgainButton.clicked) {
-    mode = INTRO;
-    ball.setPosition(20, 0);
-    ball = new FCircle(30);
+    mode = GAME1;
+    makeBall();
     endSpot.setPosition(957, 0);
     endSpot = new FBox(35, 10);
+    ssand = new FBlob();
+    ssand.setPosition(730, 0);
   }
 }

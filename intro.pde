@@ -14,10 +14,12 @@ void intro() {
   click();
   startButton.show();
   introClicks();
+
+
 }
 
 void introClicks() {
   if (startButton.clicked) {
-    mode = GAME;
+    mode = GAME1;
   }
 }
