@@ -58,12 +58,12 @@ class button {
     }
   }
 
-
   boolean touchingMouse() {
     //return true if mouse is touching the button
     return mouseX > x-w/2 && mouseX < x+w/2 && mouseY > y-h/2 && mouseY < y+h/2;
   }
 }
+
 
 void click() {
   mouseReleased = false;
@@ -73,5 +73,3 @@ void click() {
     wasPressed = false;
   }
 }
-
-//--------------------------------------------------------------------------------------------------

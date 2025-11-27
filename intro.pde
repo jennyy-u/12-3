@@ -1,6 +1,5 @@
 button startButton;
 
-
 void intro() {
   background(blue);
 
@@ -14,12 +13,8 @@ void intro() {
   click();
   startButton.show();
   introClicks();
-
-
 }
 
 void introClicks() {
-  if (startButton.clicked) {
-    mode = GAME1;
-  }
+  if (startButton.clicked) mode = GAME;
 }

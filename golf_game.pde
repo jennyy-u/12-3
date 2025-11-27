@@ -14,20 +14,19 @@ color sand = #f1e3d1;
 
 //mode framework
 final int INTRO = 0;
-final int GAME1 = 1;
+final int GAME = 1;
 final int GAMEOVER = 2;
-int mode = GAME1;
-
-FCircle ball;
-FCircle ball2;
+int mode = GAME;
 
 //keys
 boolean upKey, downKey, leftKey, rightKey, spaceKey;
 
-//locked assets
+//assets
 FPoly base;
 FBox endSpot;
 FBlob ssand;
+FCircle ball;
+FCircle ball2;
 
 //fisica
 FWorld world;
@@ -40,6 +39,8 @@ void setup() {
 
   //add terrain
   makeBase();
+
+  makeBall2();
   makeBall();
   makeEndSpot();
   makeSand();
@@ -98,14 +99,15 @@ void draw() {
 
   //mode
   if (mode == INTRO) intro();
-  else if (mode == GAME1) game1();
+  else if (mode == GAME) game();
   else if (mode == GAMEOVER) gameover();
 }
 
 //===========================================================================================
+
 void makeEndSpot() {
   endSpot = new FBox(35, 10);
-  endSpot.setPosition(957, 0);
+  endSpot.setPosition(957, -10);
 
   //set visuals
   endSpot.setStroke(green);
@@ -159,7 +161,6 @@ void makeBall2() {
 }
 
 //===========================================================================================
-
 void makeSand() {
   ssand = new FBlob();
   ssand.setPosition(730, 0);

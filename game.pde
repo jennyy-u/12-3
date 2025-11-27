@@ -1,64 +1,64 @@
 int ballPoints = 0;
 int ball2Points = 0;
+boolean start2 = false;
 
-void game1() {
-
+void game() {
   background(blue);
 
-  //points
+  if (start2 == true) {
+    ball2.setStatic(false);
+    //display ball2 points
+    fill(white);
+    textSize(40);
+    text(ball2Points, width/2, 70);
+  } else if (start2 == false) {
+    ball2.setStatic(true);
+    //display ball points
+    fill(white);
+    textSize(40);
+    text(ballPoints, width/2, 70);
+  }
 
-  fill(white);
-  textSize(40);
-  text(ballPoints, width/2, 70);
 
-
+  //ball actions
   if (ball.isTouchingBody(endSpot)) {
     ball.removeFromWorld();
-    makeBall2();
+    start2 = true;
   }
-  
-  //if (ball2.isTouchingBody(endSpot)) {
-    //mode = GAMEOVER;
-  //}
+  if (ball2.isTouchingBody(endSpot)) {
+    ball2.removeFromWorld();
+    mode = GAMEOVER;
+  }
 
-  if (mousePressed) {
+  if (mousePressed && start2 == false) {
     ballPoints++;
     float vx = mouseX - ball.getX();
     float vy = mouseY - ball.getY();
     ball.setVelocity(vx, vy);
+  } else if (mousePressed && start2 == true) {
+    ball2Points++;
+    float vx = mouseX - ball2.getX();
+    float vy = mouseY - ball2.getY();
+    ball2.setVelocity(vx, vy);
   }
-  
+
+  //ball out of frame
+  if (ball.getX() > width || ball.getX() < 0) {
+    ballPoints = ballPoints + 1000;
+    ball.removeFromWorld();
+    start2 = true;
+  }
+  if (ball2.getX() > width || ball2.getX() < 0) {
+    ball2Points = ball2Points + 1000;
+    ball2.removeFromWorld();
+    mode = GAMEOVER;
+  }
+
+  if (mode == GAMEOVER) {
+    endSpot.removeFromWorld();
+    ssand.removeFromWorld();
+  }
 
   world.step();
   world.draw();
 }
-
-/*
-class ball {
- 
- //instance variables
- PVector loca;
- PVector velo;
- 
- //constructor
- ball(float x, float y, float vx, float vy) {
- loca = new PVector(x, y);
- velo = new PVector(vx, vy);
- }
- 
- void show() {
- makeBall();
- }
- 
- void act() {
- if (mousePressed) {
- loca.add(velo);
- float vx = mouseX - ball.getX();
- float vy = mouseY - ball.getY();
- ball.setVelocity(vx, vy);
- }
- if (loca.x > width || loca.x < 0 || loca.y > height || loca.y < 0) {
- mode = GAMEOVER;
- }
- }
- } */

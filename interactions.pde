@@ -6,7 +6,6 @@ void keyPressed() {
   if (key == ' ') spaceKey = true;
 }
 
-
 void keyReleased() {
   if (keyCode == UP) upKey = false;
   if (keyCode == DOWN) downKey = false;
