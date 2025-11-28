@@ -4,7 +4,7 @@ boolean start2 = false;
 
 void game() {
   background(blue);
-
+  
   if (start2 == true) {
     ball2.setStatic(false);
     //display ball2 points

@@ -2,11 +2,12 @@ button playAgainButton;
 
 void gameover() {
   background(blue);
-
+  
+  
   //game title
   fill(white);
   textSize(70);
-  text("gameover", width/2, 250);
+  text("gameover", width/2, 260);
 
   //show score
   textSize(30);
@@ -18,10 +19,13 @@ void gameover() {
   //show win
   if (ballPoints < ball2Points) {
     textSize(50);
-    text("PLAYER 1 WINS", width/2, 120);
+    text("PLAYER 1 WINS", width/2, 130);
   } else if (ball2Points < ballPoints) {
     textSize(50);
-    text("PLAYER 2 WINS", width/2, 120);
+    text("PLAYER 2 WINS", width/2, 130);
+  } else if (ballPoints == ball2Points) {
+    textSize(50);
+    text("TIE", width/2, 120);
   }
 
   playAgainButton = new button("restart", width/2, 500, 150, 70, white, blue);
