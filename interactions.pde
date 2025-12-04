@@ -1,15 +1,27 @@
 void keyPressed() {
-  if (keyCode == UP) upKey = true;
-  if (keyCode == DOWN) downKey = true;
-  if (keyCode == LEFT) leftKey = true;
-  if (keyCode == RIGHT) rightKey = true;
-  if (key == ' ') spaceKey = true;
+  if (key == 'S' || key == 's') skey = true;
+  if (key == 'W' || key == 'w') wkey = true;
+  if (key == 'A' || key == 'a') akey = true;
+  if (key == 'D' || key == 'd') dkey = true;
+  if (key == 'Q' || key == 'q') qkey = true;
+  if (key == 'E' || key == 'e') ekey = true;
+  if (key == ' ') spacekey = true;
+  if (keyCode == DOWN) downkey = true;
+  if (keyCode == UP) upkey = true;
+  if (keyCode == LEFT) upkey = true;
+  if (keyCode == RIGHT) upkey = true;
 }
 
 void keyReleased() {
-  if (keyCode == UP) upKey = false;
-  if (keyCode == DOWN) downKey = false;
-  if (keyCode == LEFT) leftKey = false;
-  if (keyCode == RIGHT) rightKey = false;
-  if (key == ' ') spaceKey = false;
+  if (key == 'S' || key == 's') skey = false;
+  if (key == 'W' || key == 'w') wkey = false;
+  if (key == 'A' || key == 'a') akey = false;
+  if (key == 'D' || key == 'd') dkey = false;
+  if (key == 'Q' || key == 'q') qkey = false;
+  if (key == 'E' || key == 'e') ekey = false;
+  if (key == ' ') spacekey = false;
+  if (keyCode == DOWN) downkey = false;
+  if (keyCode == UP) upkey = false;
+  if (keyCode == LEFT) upkey = false;
+  if (keyCode == RIGHT) upkey = false;
 }
