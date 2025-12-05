@@ -1,8 +1,3 @@
-void setup() {
-  PImage pic = loadImage("hammerbro1.png");
-  reverseImage(pic).save("hammerbro1.png");
-}
-
 PImage reverseImage( PImage image ) {
   PImage reverse;
   reverse = createImage(image.width, image.height, ARGB );

@@ -1,10 +1,14 @@
 class FPlayer extends FGameObject {
 
   int frame;
+  int direct;
+  int lives = 5;
+
 
   FPlayer() {
     super();
     frame = 0;
+    direct = R;
     setPosition(150, 0);
     setName("player");
     setRotatable(false);
@@ -20,7 +24,8 @@ class FPlayer extends FGameObject {
   void animate() {
     if (frame >= action.length) frame = 0;
     if (frameCount % 5 == 0) {
-      attachImage(action[frame]);
+      if (direct == R) attachImage(action[frame]);
+      if (direct == L)attachImage(reverseImage(action[frame]));
       frame++;
     }
   }
@@ -34,10 +39,12 @@ class FPlayer extends FGameObject {
     if (akey) {
       setVelocity(-200, vy);
       action = run;
+      direct = L;
     }
     if (dkey) {
       setVelocity(200, vy);
       action = run;
+      direct = R;
     }
     if (wkey) setVelocity(vx, -200);
     if (skey) setVelocity(vx, 200);
