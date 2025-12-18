@@ -11,6 +11,7 @@ color white = color(255, 255, 255);    //background
 color black = color(0, 0, 0);          //ground
 color grey = color(127, 127, 127);     //walls for goomba
 color pink = color(255, 174, 201);     //goomba
+color purple = color(163, 73, 164);    //thwomp
 color red = color(237, 28, 36);        //lava
 color orange = color(255, 127, 39);    //spike
 color yellow = color(255, 201, 14);    //trampoline
@@ -26,6 +27,7 @@ PImage[] run;
 PImage[] action;
 PImage[] goomba;
 PImage[] lava;
+PImage[] thwomp;
 
 PImage map, brick, trampoline, spike, pic;
 PImage treeCenter, treeLeft, treeRight, treeInter, treeTrunk;
@@ -53,7 +55,7 @@ void setup() {
 void loadImages() {
   map = loadImage("map.png");
   brick = loadImage("brick.png");
-  trampoline = loadImage("yellowBlock.png");
+  trampoline = loadImage("trampoline.png");
   trampoline.resize(gridSize, gridSize);
   treeCenter = loadImage("treetop_center.png");
   treeLeft = loadImage("treetop_left.png");
@@ -70,7 +72,6 @@ void loadImages() {
   bridgeRight = loadImage("bridge_right.png");
   pic = loadImage("hammerbro1.png");
   reverseImage(pic).save("hammerbro1.png");
-  lava0 = loadImage("lava0.png");
 
   //load actions
   idle = new PImage [2];
@@ -93,14 +94,20 @@ void loadImages() {
   goomba[0].resize(gridSize, gridSize);
   goomba[1] = loadImage("goomba1.png");
   goomba[1].resize(gridSize, gridSize);
-  
-  lava = new PImage[6];
+
+  thwomp = new PImage[2];
+  thwomp[0] = loadImage("thwomp0.png");
+  thwomp[1] = loadImage("thwomp1.png");
+
+  lava = new PImage[8];
   lava[0] = loadImage("lava0.png");
-  lava[1] = loadImage("lava1.png");
-  lava[2] = loadImage("lava2.png");
-  lava[3] = loadImage("lava3.png");
-  lava[4] = loadImage("lava4.png");
-  lava[5] = loadImage("lava5.png");
+  lava[1] = loadImage("lava0.png");
+  lava[2] = loadImage("lava0.png");
+  lava[3] = loadImage("lava1.png");
+  lava[4] = loadImage("lava2.png");
+  lava[5] = loadImage("lava3.png");
+  lava[6] = loadImage("lava4.png");
+  lava[7] = loadImage("lava5.png");
   
 }
 
@@ -188,16 +195,22 @@ void loadWorld(PImage img) {
         world.add(br);
       }
       //lava
-      else if (c == red && cRight != red) {
-        b.attachImage(lava0);
-        b.setName("lava");
-        world.add(b);
+      else if (c == red) {
+        FLava lava = new FLava(5, 20, x*gridSize, y*gridSize);
+        terrain.add(lava);
+        world.add(lava);
       }
       //goomba
       else if (c == pink) {
         FGoomba gmb = new FGoomba(x*gridSize, y*gridSize);
         enemies.add(gmb);
         world.add(gmb);
+      }
+      //thwomp
+      else if (c == purple) {
+        FThwomp thmp = new FThwomp(x*gridSize, y*gridSize);
+        enemies.add(thmp);
+        world.add(thmp);
       }
     }
   }
@@ -214,6 +227,8 @@ void draw() {
   drawWorld();
   actWorld();
   player.act();
+  
+  
 }
 
 void actWorld() {
@@ -226,6 +241,8 @@ void actWorld() {
     FGameObject e = enemies.get(i);
     e.act();
   }
+  
+  
 }
 
 void drawWorld() {
