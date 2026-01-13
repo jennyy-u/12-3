@@ -12,7 +12,7 @@ class FLava extends FGameObject {
     currentFrame = 1;
     setPosition(x, y);
     setName("lava");
-    //attachImage(lava[0]);
+    attachImage(lava[0]);
   }
 
 

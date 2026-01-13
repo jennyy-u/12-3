@@ -1,15 +1,16 @@
 button startButton;
 
 void intro() {
-  background(blue);
+  background(sky);
+
 
   //game title
   fill(white);
-  textSize(90);
-  text("golf", width/2, 200);
+  textSize(30);
+  text("platformer game", width/2, 170);
 
   //start button
-  startButton = new button("start", width/2, 400, 150, 70, white, blue);
+  startButton = new button("START", width/2, 210, 50, 20, white, sky);
   click();
   startButton.show();
   introClicks();
