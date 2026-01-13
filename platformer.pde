@@ -11,20 +11,26 @@ color white = color(255, 255, 255);
 color sky = color(144, 213, 255);        //background
 color black = color(0, 0, 0);            //ground
 color grey = color(127, 127, 127);       //walls for enemies
-color pink = color(255, 174, 201);       //goomba
-color darkPink = color(255, 128, 192);   //switch block
-color purple = color(163, 73, 164);      //thwomp
-color rpurple = color (107, 63, 160);    //portal
-color lpurple = color (200, 191, 231);   //player starting point
+
 color indigo = color(63, 72, 204);       //hammerbro
-color red = color(237, 28, 36);          //lava
+color purple = color(163, 73, 164);      //thwomp
+color pink = color(255, 174, 201);       //goomba
+
+color lpurple = color (200, 191, 231);   //player starting point
+color rpurple = color (107, 63, 160);    //portal
+color darkPink = color(255, 128, 192);   //switch block
+color greyblue = color(112, 146, 190);   //save point block
+
+color redBrown = color(136, 0, 21);      //collapsing bridge
 color orange = color(255, 127, 39);      //spike
+color red = color(237, 28, 36);          //lava
+color blue = color(153, 217, 234);       //ice
 color yellow = color(255, 201, 14);      //trampoline
 color green = color(34, 177, 76);        //tree
 color brown = color(185, 122, 87);       //tree trunk
-color blue = color(153, 217, 234);       //ice
-color greyblue = color(112, 146, 190);   //save point block 
-color redBrown = color(136, 0, 21);      //collapsing bridge
+
+
+
 
 //images
 PImage[] idle;
@@ -62,9 +68,9 @@ void setup() {
   Fisica.init(this);
   terrain = new ArrayList <FGameObject>();
   enemies = new ArrayList <FGameObject>();
+  loadPlayer();
   loadImages();
   loadWorld(map);
-  loadPlayer();
 }
 
 void loadImages() {
@@ -133,7 +139,7 @@ void loadImages() {
 
 void loadPlayer() {
   player = new FPlayer();
-  world.add(player);
+  //world.add(player);
 }
 
 void loadWorld(PImage img) {
@@ -164,6 +170,7 @@ void loadWorld(PImage img) {
       }
       //player starting point
       else if (c == lpurple) {
+        world.add(player);
         player.setPosition(x*gridSize, y*gridSize);
       }
       //trampoline
