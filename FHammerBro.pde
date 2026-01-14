@@ -1,21 +1,39 @@
 class FHammerBro extends FGameObject {
-  
+
   int direct = L;
   int speed = 50;
   int frame = 0;
   int time = 120;
 
+  int timeH = 30;
+  float directH;
+  PVector loca;
+  PVector velo;
+  FBox hammer;
+
   FHammerBro(float x, float y) {
     super();
     setPosition(x, y);
-    setName("goomba");
+    setName("hammerbro");
     setRotatable(false);
   }
+
+  void makeHammer() {
+    hammer = new FBox(20, 20);
+    hammer.attachImage(hammerImg);
+    setVelocity(5, 5);
+    setAngularVelocity(5);
+    setSensor(true);
+    world.add(hammer);
+  }
+
 
   void act() {
     animate();
     collide();
     move();
+    throwHammers();
+    //collideH();
     time--;
   }
 
@@ -46,10 +64,22 @@ class FHammerBro extends FGameObject {
     }
   }
 
+  /*void collideH() {
+    if (hammer.isTouching("player")) {
+      player.lives--;
+      player.setPosition(150, 0);
+    }
+  }*/
+
+
   void move() {
     float vy = getVelocityY();
     setVelocity(speed*direct, vy);
   }
-  
-  
+
+  void throwHammers() {
+    timeH--;
+    if (timeH <= 0) makeHammer();
+    timeH = 30;
+  }
 }

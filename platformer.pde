@@ -8,26 +8,27 @@ FWorld world;
 
 //colors
 color white = color(255, 255, 255);
-color sky = color(144, 213, 255);        //background
-color black = color(0, 0, 0);            //ground
-color grey = color(127, 127, 127);       //walls for enemies
+color sky = color(144, 213, 255);          //background
+color black = color(0, 0, 0);              //ground
+color grey = color(127, 127, 127);         //walls for enemies
+ 
+color indigo = color(63, 72, 204);         //hammerbro
+color purple = color(163, 73, 164);        //thwomp
+color pink = color(255, 174, 201);         //goomba
 
-color indigo = color(63, 72, 204);       //hammerbro
-color purple = color(163, 73, 164);      //thwomp
-color pink = color(255, 174, 201);       //goomba
+color lpurple = color (200, 191, 231);     //player starting point
+color rpurple = color (107, 63, 160);      //portal
+color darkPink = color(255, 128, 192);     //switch block
+color greyblue = color(112, 146, 190);     //save point block
 
-color lpurple = color (200, 191, 231);   //player starting point
-color rpurple = color (107, 63, 160);    //portal
-color darkPink = color(255, 128, 192);   //switch block
-color greyblue = color(112, 146, 190);   //save point block
-
-color redBrown = color(136, 0, 21);      //collapsing bridge
-color orange = color(255, 127, 39);      //spike
-color red = color(237, 28, 36);          //lava
-color blue = color(153, 217, 234);       //ice
-color yellow = color(255, 201, 14);      //trampoline
-color green = color(34, 177, 76);        //tree
-color brown = color(185, 122, 87);       //tree trunk
+color redBrown = color(136, 0, 21);        //collapsing bridge
+color orange = color(255, 127, 39);        //spike
+color red = color(237, 28, 36);            //lava
+color lightblue = color(153, 217, 234);    //ice
+color yellow = color(255, 201, 14);        //trampoline
+color green = color(34, 177, 76);          //tree
+color brown = color(185, 122, 87);         //tree trunk
+color darkgreen = color(64, 128, 128);     //NPC
 
 
 
@@ -41,7 +42,6 @@ PImage[] goomba;
 PImage[] lava;
 PImage[] thwomp;
 PImage[] hammerbro;
-PImage[] hammer;
 
 PImage map, map2, brick, trampoline, spike, pic;
 PImage treeCenter, treeLeft, treeRight, treeInter, treeTrunk;
@@ -49,6 +49,7 @@ PImage ice1, ice2, ice3, ice4;
 PImage lava0, lava1, lava2, lava3, lava4, lava5;
 PImage bridgeCenter, bridgeLeft, bridgeRight;
 PImage portal;
+PImage hammerImg;
 int gridSize = 32;
 float zoom = 1.2;
 boolean upkey, downkey, leftkey, rightkey, spacekey, wkey, akey, skey, dkey, qkey, ekey;
@@ -94,6 +95,7 @@ void loadImages() {
   bridgeRight = loadImage("bridge_right.png");
   portal = loadImage("yellowStar.png");
   pic = loadImage("hammerbro1.png");
+  hammerImg = loadImage("hammer.png");
   reverseImage(pic).save("hammerbro1.png");
 
   //load actions
@@ -208,15 +210,15 @@ void loadWorld(PImage img) {
         world.add(b);
       }
       //ice
-      if (c == blue && cLeft != blue) {
+      if (c == lightblue && cLeft != lightblue) {
         b.attachImage(ice1);
         b.setName("ice");
         world.add(b);
-      } else if (c == blue) {
+      } else if (c == lightblue) {
         b.attachImage(ice2);
         b.setName("ice");
         world.add(b);
-      } else if (c == blue && cRight != blue) {
+      } else if (c == lightblue && cRight != lightblue) {
         b.attachImage(ice4);
         b.setName("ice");
         world.add(b);
@@ -277,6 +279,7 @@ void draw() {
   //modes
   if (mode == INTRO) intro();
   else if (mode == GAME) game();
+  else if (mode == PAUSE) pause();
   else if (mode == GAMEOVER) gameover();
 
   drawWorld();
