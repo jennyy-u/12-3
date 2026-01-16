@@ -5,11 +5,11 @@ class FHammerBro extends FGameObject {
   int frame = 0;
   int time = 120;
 
-  int timeH = 30;
+  int timeH = 60;
   float directH;
   PVector loca;
   PVector velo;
-  FBox hammer;
+  
 
   FHammerBro(float x, float y) {
     super();
@@ -19,11 +19,12 @@ class FHammerBro extends FGameObject {
   }
 
   void makeHammer() {
-    hammer = new FBox(20, 20);
+    hammer = new FBox(5, 5);
+    hammer.setPosition(getX(), getY()-40);
     hammer.attachImage(hammerImg);
-    setVelocity(5, 5);
-    setAngularVelocity(5);
-    setSensor(true);
+    hammer.setVelocity(random(-100, 100), random(-100, 100));
+    hammer.setAngularVelocity(random(100));
+    hammer.setSensor(true);
     world.add(hammer);
   }
 
@@ -33,7 +34,7 @@ class FHammerBro extends FGameObject {
     collide();
     move();
     throwHammers();
-    //collideH();
+    collideH();
     time--;
   }
 
@@ -64,12 +65,12 @@ class FHammerBro extends FGameObject {
     }
   }
 
-  /*void collideH() {
-    if (hammer.isTouching("player")) {
+  void collideH() {
+    /*if (hammer.isTouching("player")) {
       player.lives--;
       player.setPosition(150, 0);
-    }
-  }*/
+    }*/
+  }
 
 
   void move() {
@@ -79,7 +80,10 @@ class FHammerBro extends FGameObject {
 
   void throwHammers() {
     timeH--;
-    if (timeH <= 0) makeHammer();
-    timeH = 30;
+    if (timeH <= 0) {
+      makeHammer();
+      println("h");
+      timeH = 60;
+    }
   }
 }
